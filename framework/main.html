@@ -37,8 +37,9 @@
     <div id="main_panel" ms-controller="panelController">
 
         <div class="panel-box" ms-repeat="panelArray" >
+           
             <div class="tools bgc-blue overhiden" ms-mousedown="dragging(event,'move')"  ms-dblclick="tabSize($index,this)">
-                <div class="panel-title fl" title=" {{el.text}}" ms-mousedown="dragging(event,'move')">{{el.text}}</div>
+                <div class="panel-title fl" title=" {{el.text}}"  ms-mousedown="dragging(event,'move',$index)" >{{el.text}}</div>
                 <div class="point"></div>
                 <div class="fui-list option fr" ms-mousedown="dragging(event,'move')">
                     <ul class="option-item">
@@ -67,11 +68,13 @@
 
     <script type="text/javascript" src="scripts/avalon.js"></script>
     <script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/linq-vsdoc.js"></script>
+    <script src="scripts/linq.js"></script>
     <script type="text/javascript" src="scripts/framework.main.js"></script>
     <script type="text/javascript" src="scripts/framework.unity.js"></script>
     <script type="text/javascript" src="scripts/framework.model.js"></script>
     <script type="text/javascript" src="scripts/framework.ctrl.js"></script>
-
+    
 </body>
 
 </html>
