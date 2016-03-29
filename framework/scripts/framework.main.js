@@ -16,6 +16,8 @@ var MenuObj = {
 
         var svrObj = SvrObj.New();
 
+        var inx = 0;
+
         obj.data = svrObj.getMenuArray();
 
         obj.menuTplFactry = function (data, tempHtml) {
@@ -42,13 +44,14 @@ var MenuObj = {
                 href: $(menuDom).attr('href'),
                 text: $(menuDom).text(),
                 ico: $(menuDom).attr('class'),
+                index: inx,
                 isMaximize: true
             };
 
             if (IS_NULL(temp.href)) {
                 return null;
             }
-
+            inx = inx++;
             return temp;
         };
 
@@ -187,7 +190,7 @@ var PanelObj = {
             };
 
             obj.move = function (event) {
-               
+
                 //鼠标移动
                 document.onmousemove = function (event) {
                     //正文内容窗口拖拽
@@ -197,7 +200,7 @@ var PanelObj = {
                         var event = event || window.event;
                         var X = event.clientX - dragging.pointX;
                         var Y = event.clientY - dragging.pointY;
-    
+
 
                         if (panelObj.offset().left > X) {//操作最大边界
                             dragging.lockObj.css({ "left": panelObj.offset().left + "px" });
@@ -249,7 +252,39 @@ var PanelObj = {
 
         };
 
-       
+        obj.activate = function (event, action) {
+
+            var targetIndex = 0;
+            var targetObj = null;
+
+            targetObj = $(event.target.parentElement);
+            targetIndex = parseInt(targetObj.css("z-index"));
+
+            var otherPanels = panelObj.find('.panel-box').not(targetObj);
+
+            for (var i = targetIndex; i < otherPanels.length; i++) {
+                for (var j = targetIndex + 1; j < otherPanels.length; j++) {
+                    var temp = otherPanels[i];
+                    if (parseInt($(otherPanels[i]).css("z-index")) > parseInt($(otherPanels[j]).css("z-index"))) {
+                        otherPanels[i] = otherPanels[j];
+                        otherPanels[j] = temp;
+                    }
+                }
+            }
+
+
+            if (otherPanels.length > 0) {
+                for (var i = 0; i < otherPanels.length; i++) {
+                    otherPanels.eq(i).css("z-index", i);
+                }
+                targetObj.css("z-index", otherPanels.length)
+            }
+
+            if (action === 'move')
+                obj.move(event);
+            else
+                obj.flex(event);
+        }
 
         return obj;
     }

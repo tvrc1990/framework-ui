@@ -9,8 +9,8 @@
     <link href="styles/framework.unity.css" rel="stylesheet" />
     <link href="styles/framework.layout.css" rel="stylesheet" />
 
-    <link href="dist/css/vendor/bootstrap.min.css" rel="stylesheet" />
-    <link href="dist/css/flat-ui.css" rel="stylesheet" />
+    <link href="flat-ui/css/vendor/bootstrap.min.css" rel="stylesheet" />
+    <link href="flat-ui/css/flat-ui.css" rel="stylesheet" />
 
 </head>
 
@@ -38,10 +38,10 @@
 
         <div class="panel-box" ms-repeat="panelArray" >
            
-            <div class="tools bgc-blue overhiden" ms-mousedown="dragging(event,'move')"  ms-dblclick="tabSize($index,this)">
-                <div class="panel-title fl" title=" {{el.text}}"  ms-mousedown="dragging(event,'move',$index)" >{{el.text}}</div>
+            <div class="tools bgc-blue overhiden" ms-mousedown="focus(event,'move')"  ms-dblclick="tabSize($index,this)">
+                <div class="panel-title fl" title=" {{el.text}}"  ms-mousedown="focus(event,'move')" >{{el.text}}</div>
                 <div class="point"></div>
-                <div class="fui-list option fr" ms-mousedown="dragging(event,'move')">
+                <div class="fui-list option fr" ms-mousedown="focus(event,'move')">
                     <ul class="option-item">
                         <li ms-click="close($index)">close</li>
                     </ul>
@@ -49,7 +49,7 @@
 
             </div>
 
-            <div class="panel-area bgc-white" ms-include-src="{{el.href}}"></div>
+            <div class="panel-area bgc-white"  ms-mousedown="focus(event)" ms-include-src="{{el.href}}"></div>
 
         </div>
 

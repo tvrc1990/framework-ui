@@ -11,6 +11,11 @@ var panelModel = avalon.define({
     open: function (menuDom) {
         var temp = _menuObj.domToObj(menuDom);
 
+        if (temp === null || temp.text === null)
+        {
+            return false;
+        }
+
         var isExists = Enumerable.From(panelModel.panelArray).Where("x=>x.text=='" + temp.text + "'").ToArray().length === 0;
 
         if (temp != null && isExists) {
@@ -22,16 +27,10 @@ var panelModel = avalon.define({
         panelModel.panelArray.removeIndex(index);
     },
 
-    dragging: function (event, action) {
+    focus: function (event, action) {
         var panel = new PanelObj.New();
-        switch (action) {
-            case 'move':
+        panel.activate(event, action);
 
-                panel.move(event);
-                break;
-            case 'flex':
-                panel.flex(event); break;
-        }
     },
 
     tabSize: function (index,dom) {
@@ -40,9 +39,6 @@ var panelModel = avalon.define({
         panelModel.panelArray[index].isMaximize = temp.isMaximize ? false : true;
     },
 
-    focus: function (index) {
-        alert(index);
-    }
 
 
 });

@@ -53,7 +53,7 @@ var SvrObj = {
                         href: '',
                         menus: [
                                    { text: "link_1_2_1", href: 'sub.html' },
-                                   { text: "link_1_2_2", href: '' }
+                                   { text: "link_1_2_2", href: 'C.html' }
                         ]
                     }
                 ]
