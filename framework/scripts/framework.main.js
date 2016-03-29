@@ -65,6 +65,13 @@ var PanelObj = {
 
         var obj = {};
         var panelObj = $('#main_panel');
+
+        var dragging = {
+            pointX: 0,
+            pointY: 0,
+            lockObj: null //只能拖动被锁定的对象，按下鼠标所在的对象将被锁定
+        };
+
         //伸缩
         {
             var theobject = null; //This gets a value as soon as a resize start
@@ -182,14 +189,7 @@ var PanelObj = {
         }
 
         //移动
-        {
-            var dragging = {
-                pointX: 0,
-                pointY: 0,
-                lockObj: null //只能拖动被锁定的对象，按下鼠标所在的对象将被锁定
-            };
-
-            obj.move = function (event) {
+        obj.move = function (event) {
 
                 //鼠标移动
                 document.onmousemove = function (event) {
@@ -241,10 +241,8 @@ var PanelObj = {
 
                 event.stopPropagation();
             }
-        }
-
-
-        obj.tabSize = function (isMaximize, dom) {
+        
+        obj.changeSize = function (isMaximize, dom) {
             if (isMaximize)
                 $(dom).parents('.panel-box').css({ 'width': '50%', 'height': '70%', 'left': panelObj.offset().width / 2, 'top': panelObj.offset().height / 2 });
             else
@@ -284,6 +282,18 @@ var PanelObj = {
                 obj.move(event);
             else
                 obj.flex(event);
+        }
+
+        obj.operation = function (event) {
+
+            var optionIcoDom = $(event.target);
+
+            var optionBoxDom = $(event.target).next('.panel-tool-box');
+
+            optionBoxDom.show();
+
+    
+
         }
 
         return obj;
@@ -341,6 +351,8 @@ $(function () {
 
     var mainObj = MainObj.New();
     mainObj.topInit();
+
+ 
 
 });
 

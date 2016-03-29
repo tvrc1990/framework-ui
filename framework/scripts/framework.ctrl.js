@@ -33,13 +33,15 @@ var panelModel = avalon.define({
 
     },
 
-    tabSize: function (index,dom) {
+    changeSize: function (index,dom) {
         var temp = panelModel.panelArray[index];
-        _panelObj.tabSize(temp.isMaximize, dom);
+        _panelObj.changeSize(temp.isMaximize, dom);
         panelModel.panelArray[index].isMaximize = temp.isMaximize ? false : true;
     },
 
-
+    operation: function (event) {
+        _panelObj.operation(event)
+    }
 
 });
 

@@ -119,7 +119,7 @@
     padding:0px 4px 4px 4px;
 }
 
-#main_panel > .panel-box .tools {
+#main_panel > .panel-box .panel-tools {
     height:4%;
     min-height:25px;
     cursor:move;
@@ -131,31 +131,37 @@
 	position:relative
 }
 
-#main_panel > .panel-box > .tools> .option
+#main_panel > .panel-box > .panel-tools> .option-ico
 {
 	text-align:center;
 	width:40px;
 	display:block;
-}
-
-#main_panel > .panel-box > .tools> .option:hover > .option-item{
-    padding: 0px; 
-	list-style-type: none;
-	display:block;	
-	position:absolute;
-}
-
-#main_panel > .panel-box > .tools> .option > .option-item{
-	padding: 0px; 
-	list-style-type: none;
-	display:none;	
-	position:absolute;
+    height:100%;
 }
 
 
+#main_panel > .panel-box > .panel-tools > .panel-tool-box {
+
+    padding-top: 4%; 
+    width:80px;
+    height:200px;
+    position:absolute;
+    right:4px;
+}
+
+#main_panel > .panel-box > .panel-tools > .panel-tool-box >.option-item {
+    list-style-type:none;
+    line-height:22px;
+}
 
 
-#main_panel > .panel-box > .panel-area {
+
+
+
+
+
+
+#main_panel > .panel-box > .panel-content {
     height:96%;
     width:100%;
     overflow:auto;
