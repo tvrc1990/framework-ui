@@ -122,7 +122,7 @@ var PanelObj = {
                     xMin = 8; //The smallest width possible
                     yMin = 8; //             height
 
-                    el = getReal(event.srcElement, "className", "resizeMe");
+                    el = getReal((event.target || event.srcElement), "className", "resizeMe");
 
                     if (el.className == "resizeMe") {
                         str = getDirection(el);
@@ -183,8 +183,7 @@ var PanelObj = {
 
                 window.event.returnValue = false;
                 window.event.cancelBubble = true;
-
-                event.stopPropagation();
+                return false;
             }
         }
 
@@ -233,13 +232,13 @@ var PanelObj = {
                 });
 
                 //pointX, pointY, dragging这个三个参数是全局参数在 main.js 中定义
-                var contentBox = $(event.target).parents('.panel-box');
+                var contentBox = $((event.target || event.srcElement)).parents('.panel-box');
                 dragging.lockObj = contentBox;
                 dragging.pointX = event.clientX - contentBox.offset().left;
                 dragging.pointY = event.clientY - contentBox.offset().top;
                 contentBox.setCapture && contentBox.setCapture();
 
-                event.stopPropagation();
+                return false;
             }
         
         obj.changeSize = function (isMaximize, dom) {
@@ -250,12 +249,12 @@ var PanelObj = {
 
         };
 
-        obj.activate = function (event, action) {
-
+        obj.activate = function (e, action) {
+            //event = event ? event : (window.event ? window.event : null);
             var targetIndex = 0;
             var targetObj = null;
 
-            targetObj = $(event.target.parentElement);
+            targetObj = $((event.target||event.srcElement).parentElement);
             targetIndex = parseInt(targetObj.css("z-index"));
 
             var otherPanels = panelObj.find('.panel-box').not(targetObj);
@@ -286,11 +285,15 @@ var PanelObj = {
 
         obj.operation = function (event) {
 
-            var optionIcoDom = $(event.target);
+            var optionIcoDom = $((event.target || event.srcElement));
 
-            var optionBoxDom = $(event.target).next('.panel-tool-box');
+            var optionBoxDom = optionIcoDom.find('.panel-tool-box');//$(event.target).parents('.panel-box').find('.panel-tool-box');
 
             optionBoxDom.show();
+
+            optionIcoDom.unbind('mouseleave').mouseleave(function () {
+                optionBoxDom.hide();
+            });
 
     
 

@@ -37,28 +37,27 @@
     <div id="main_panel" ms-controller="panelController">
 
         <!--菜单对应的窗口-->
-        <div class="panel-box" ms-repeat="panelArray" >
-           
+        <div class="panel-box" ms-repeat="panelArray">
+
             <!--标题-->
-            <div class="panel-tools bgc-blue overhiden" ms-mousedown="focus(event,'move')"  ms-dblclick="changeSize($index,this)">
-               
-                <div class="panel-title fl" title=" {{el.text}}"  ms-mousedown="focus(event,'move')" >{{el.text}}</div>
+            <div class="panel-tools bgc-blue overhiden" ms-mousedown="focus(this,'move')" ms-dblclick="changeSize($index,this)">
 
-                <div class="fui-list option-ico fr" ms-mousedown="focus(event,'move')" ms-mouseenter="operation(event)"></div>
-
-                <!--  窗口工具栏-->
-                <div class="panel-tool-box hide">
-                    <ul>
+                <div class="panel-title fl" title=" {{el.text}}" ms-mousedown="focus(event,'move')">{{el.text}}</div>
+                
+                 <!--  窗口工具栏-->
+                <div class="fui-list option-box fr" ms-mousedown="focus(event,'move')" ms-mouseenter="operation(event)">
+                    <ul class="panel-tool-box">
                         <li ms-click="close($index)">close</li>
                     </ul>
-                 </div>
+                </div>
+
 
             </div>
 
-            
+
 
             <!--   内容容器-->
-            <div class="panel-content bgc-white"  ms-mousedown="focus(event)" ms-include-src="{{el.href}}"></div>
+            <div class="panel-content bgc-white" ms-mousedown="focus(event)" ms-include-src="{{el.href}}"></div>
 
         </div>
 
@@ -83,7 +82,7 @@
     <script type="text/javascript" src="scripts/framework.unity.js"></script>
     <script type="text/javascript" src="scripts/framework.model.js"></script>
     <script type="text/javascript" src="scripts/framework.ctrl.js"></script>
-    
+
 </body>
 
 </html>

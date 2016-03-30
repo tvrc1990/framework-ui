@@ -27,9 +27,11 @@ var panelModel = avalon.define({
         panelModel.panelArray.removeIndex(index);
     },
 
-    focus: function (event, action) {
+    focus: function (e, action) {
+        debugger;
+        e = e || window.event;
         var panel = new PanelObj.New();
-        panel.activate(event, action);
+        panel.activate(e, action);
 
     },
 

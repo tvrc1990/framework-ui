@@ -117,12 +117,14 @@
     overflow:hidden;
     background-color: #3498db;
     padding:0px 4px 4px 4px;
+
 }
 
 #main_panel > .panel-box .panel-tools {
     height:4%;
     min-height:25px;
     cursor:move;
+    position: static;
 }
 
 #main_panel> .panel-box > .panel-title {
@@ -131,29 +133,35 @@
 	position:relative
 }
 
-#main_panel > .panel-box > .panel-tools> .option-ico
+#main_panel > .panel-box > .panel-tools> .option-box 
 {
 	text-align:center;
-	width:40px;
+	width:60px;
 	display:block;
-    height:100%;
-}
-
-
-#main_panel > .panel-box > .panel-tools > .panel-tool-box {
-
-    padding-top: 4%; 
-    width:80px;
-    height:200px;
+    height:auto;
+    min-height:25px;
     position:absolute;
-    right:4px;
+    right:0px;
 }
 
-#main_panel > .panel-box > .panel-tools > .panel-tool-box >.option-item {
+
+#main_panel > .panel-box > .panel-tools> .option-box > .panel-tool-box{
+
+    width:100%;
+    height:auto;
+    padding:4% 1px 5px 1px;
+    border-radius: 2px;
+    display:none;
+    background-color: #f3f4f5;
+}
+
+#main_panel > .panel-box > .panel-tools> .option-box   >ul > li {
     list-style-type:none;
     line-height:22px;
 }
-
+#main_panel > .panel-box > .panel-tools > .option-box  > ul > li :hover{
+    background-color: #1abc9c;
+}
 
 
 
