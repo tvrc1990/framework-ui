@@ -6,6 +6,7 @@
 /*Tools Start*/
 #main_tools {
     height: 4%;
+    min-height:25px;
     width: 100%;
     background-color: #3c8dbc;
     position: fixed;
@@ -19,17 +20,21 @@
     height: 100%;
 	width: 150px;
 	text-align:center;
+    line-height:25px;
     color: white;
 }
 
 #main_tools> .current-user-content
 {
-  width: 150px;
-  height:200px;
-  background-color:#ecf0f1;
+  width:15%;
+  height:18%;
+  min-width: 150px;
+  min-height:200px;
+  background-color:#5AB6DF;
   position: absolute;
   right:0;
-  
+  border-radius: 2px;
+  margin-top: 2px;
   
 }
 
@@ -42,29 +47,38 @@
     width: 12%;
     position: fixed;
     z-index:100;
-	bottom:0
+	bottom:0;
+    background-color:#425063;
 }
 
 #main_menu .menu-head {
-    height: 10%;
+    height: 0%;
     width: 100%;
 }
 
 .menu-tree ul {
     margin: 0px;
-    padding-left: 20px;
+    padding-left: 0px;
     width: 100%;
     padding-top: 10%;
     z-index: 10;
-    background-color: #eff0f2;
     list-style-type: none;
 }
 
 .menu-tree ul li {
     width: 100%;
     position: relative;
+    padding-left:20px;
+    line-height:35px;
+    color:white;
+    cursor:pointer;
 }
 
+.menu-tree ul li:hover
+{
+    background-color:#353f4f;  
+    color:#65CEA7;
+}
 .menu-tree ul li span {
     cursor: pointer;
 }
@@ -81,6 +95,9 @@
     left: 100%;
     display: none;
     list-style-type: none;
+    border-radius:3px;
+    background-color:#425063;
+    margin-left:2px;
 }
 
 .menu-tree li.expand > span {
@@ -113,9 +130,9 @@
     height:96%;
     position:fixed; 
     /*border:2px solid #3498db;*/
-    border-radius: 6px;
+    border-radius: 3px;
     overflow:hidden;
-    background-color: #3498db;
+    background-color: #65CEA7;
     padding:0px 4px 4px 4px;
 
 }
@@ -123,7 +140,6 @@
 #main_panel > .panel-box .panel-tools {
     height:4%;
     min-height:25px;
-    cursor:move;
     position: static;
 }
 
@@ -150,15 +166,24 @@
     width:100%;
     height:auto;
     padding:4% 1px 5px 1px;
-    border-radius: 2px;
+    border-radius: 3px;
     display:none;
-    background-color: #f3f4f5;
+    background-color: #425063;
 }
 
 #main_panel > .panel-box > .panel-tools> .option-box   >ul > li {
     list-style-type:none;
     line-height:22px;
+    color:white;
+    font-size:11px;
+    cursor:pointer;
 }
+
+#main_panel > .panel-box > .panel-tools > .option-box > ul > li:hover {
+    background-color:#353f4f;  
+    color:#65CEA7;
+}
+
 #main_panel > .panel-box > .panel-tools > .option-box  > ul > li :hover{
     background-color: #1abc9c;
 }

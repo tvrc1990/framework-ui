@@ -27,12 +27,16 @@ var panelModel = avalon.define({
         panelModel.panelArray.removeIndex(index);
     },
 
-    focus: function (e, action) {
-        debugger;
-        e = e || window.event;
+    drag: function () {
         var panel = new PanelObj.New();
-        panel.activate(e, action);
+        panel.focus();
+        panel.drag();
 
+    },
+
+    focus: function () {
+        var panel = new PanelObj.New();
+        panel.focus();
     },
 
     changeSize: function (index,dom) {
@@ -41,8 +45,8 @@ var panelModel = avalon.define({
         panelModel.panelArray[index].isMaximize = temp.isMaximize ? false : true;
     },
 
-    operation: function (event) {
-        _panelObj.operation(event)
+    operation: function () {
+        _panelObj.operation()
     }
 
 });

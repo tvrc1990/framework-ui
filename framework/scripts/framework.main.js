@@ -16,7 +16,6 @@ var MenuObj = {
 
         var svrObj = SvrObj.New();
 
-        var inx = 0;
 
         obj.data = svrObj.getMenuArray();
 
@@ -28,7 +27,7 @@ var MenuObj = {
                     tempHtml += ' </ul> </li>'
                 }
                 else {
-                    tempHtml += ' <li><span ms-click="clickMenu(this)" href=' + data[i].href + '>' + data[i].text + '</span></li> '
+                    tempHtml += ' <li ms-click="clickMenu(this)" ><span  href=' + data[i].href + '>' + data[i].text + '</span></li> '
                 }
             }
             return tempHtml;
@@ -39,19 +38,17 @@ var MenuObj = {
         };
 
         obj.domToObj = function (menuDom) {
-
+            menuDom = $(menuDom).find('span');
             var temp = {
                 href: $(menuDom).attr('href'),
                 text: $(menuDom).text(),
                 ico: $(menuDom).attr('class'),
-                index: inx,
                 isMaximize: true
             };
 
             if (IS_NULL(temp.href)) {
                 return null;
             }
-            inx = inx++;
             return temp;
         };
 
@@ -102,7 +99,6 @@ var PanelObj = {
 
                 return dir;
             }
-
             var getReal = function (el, type, value) {
                 temp = el;
                 while ((temp != null) && (temp.tagName != "BODY")) {
@@ -114,7 +110,6 @@ var PanelObj = {
                 }
                 return el;
             }
-
             obj.flex = function (event) {
 
                 document.onmousemove = function () {
@@ -187,60 +182,56 @@ var PanelObj = {
             }
         }
 
-        //移动
-        obj.move = function (event) {
+        //拖拽移动
+        obj.drag = function () {
+            var event = (window.event || arguments.callee.caller.arguments[0]);
+            //鼠标移动
+            document.onmousemove = function () {
+                //正文内容窗口拖拽
 
-                //鼠标移动
-                document.onmousemove = function (event) {
-                    //正文内容窗口拖拽
+                if (!IS_NULL(dragging.lockObj)) {
 
-                    if (!IS_NULL(dragging.lockObj)) {
+                    var event = event || window.event;
+                    var X = event.clientX - dragging.pointX;
+                    var Y = event.clientY - dragging.pointY;
 
-                        var event = event || window.event;
-                        var X = event.clientX - dragging.pointX;
-                        var Y = event.clientY - dragging.pointY;
+                    var tempX = panelObj.offset().left > X ? panelObj.offset().left : X;
 
-
-                        if (panelObj.offset().left > X) {//操作最大边界
-                            dragging.lockObj.css({ "left": panelObj.offset().left + "px" });
-                        }
-                        else {
-                            dragging.lockObj.css({ "left": X + "px" });
-                        }
-
-                        if (panelObj.offset().top > Y) {//操作最大边界
-                            dragging.lockObj.css({ "top": panelObj.offset().top + "px" });
-                        }
-                        else {
-                            dragging.lockObj.css({ "top": Y + "px" });
-                        }
-
-                        return false;
+                    var tempY = panelObj.offset().top > Y ? panelObj.offset().top : Y;
+                    if (tempY > panelObj.height()) {
+                        tempY = panelObj.height() + 25;
                     }
 
-                };
 
-                //鼠标弹起取消拖动
-                $(document).unbind('mouseup').mouseup(function (event) {
+                    dragging.lockObj.css({ "left": tempX + "px", "top": +tempY + "px" });
 
-                    //正文内容窗口
-                    if (dragging.lockObj !== null) {
-                        dragging.lockObj = null;
-                        event.cancelBubble = true;
-                    }
+                    return false;
+                }
 
-                });
+            };
 
-                //pointX, pointY, dragging这个三个参数是全局参数在 main.js 中定义
-                var contentBox = $((event.target || event.srcElement)).parents('.panel-box');
-                dragging.lockObj = contentBox;
-                dragging.pointX = event.clientX - contentBox.offset().left;
-                dragging.pointY = event.clientY - contentBox.offset().top;
-                contentBox.setCapture && contentBox.setCapture();
+            //鼠标弹起取消拖动
+            $(document).unbind('mouseup').mouseup(function () {
 
-                return false;
-            }
-        
+                //正文内容窗口
+                if (dragging.lockObj !== null) {
+                    dragging.lockObj = null;
+                    event.cancelBubble = true;
+                }
+
+            });
+
+            //pointX, pointY, dragging这个三个参数是全局参数在 main.js 中定义
+            var contentBox = $((event.target || event.srcElement)).parents('.panel-box');
+            dragging.lockObj = contentBox;
+            dragging.pointX = event.clientX - contentBox.offset().left;
+            dragging.pointY = event.clientY - contentBox.offset().top;
+            contentBox.setCapture && contentBox.setCapture();
+
+            return false;
+        }
+
+        //最大化&最小化
         obj.changeSize = function (isMaximize, dom) {
             if (isMaximize)
                 $(dom).parents('.panel-box').css({ 'width': '50%', 'height': '70%', 'left': panelObj.offset().width / 2, 'top': panelObj.offset().height / 2 });
@@ -249,16 +240,12 @@ var PanelObj = {
 
         };
 
-        obj.activate = function (e, action) {
-            //event = event ? event : (window.event ? window.event : null);
-            var targetIndex = 0;
-            var targetObj = null;
-
-            targetObj = $((event.target||event.srcElement).parentElement);
-            targetIndex = parseInt(targetObj.css("z-index"));
-
+        //窗口获取焦点
+        obj.focus = function () {
+            var event = (window.event || arguments.callee.caller.arguments[0]);
+            var targetObj = targetObj = $((event.target || event.srcElement).parentElement);
+            var targetIndex = parseInt(targetObj.css("z-index"));
             var otherPanels = panelObj.find('.panel-box').not(targetObj);
-
             for (var i = targetIndex; i < otherPanels.length; i++) {
                 for (var j = targetIndex + 1; j < otherPanels.length; j++) {
                     var temp = otherPanels[i];
@@ -269,23 +256,18 @@ var PanelObj = {
                 }
             }
 
-
             if (otherPanels.length > 0) {
                 for (var i = 0; i < otherPanels.length; i++) {
                     otherPanels.eq(i).css("z-index", i);
                 }
                 targetObj.css("z-index", otherPanels.length)
             }
-
-            if (action === 'move')
-                obj.move(event);
-            else
-                obj.flex(event);
         }
 
-        obj.operation = function (event) {
-
-            var optionIcoDom = $((event.target || event.srcElement));
+        //窗口操作
+        obj.operation = function () {
+            var event = (window.event || arguments.callee.caller.arguments[0]);
+            var optionIcoDom = $(event.target || event.srcElement);
 
             var optionBoxDom = optionIcoDom.find('.panel-tool-box');//$(event.target).parents('.panel-box').find('.panel-tool-box');
 
@@ -295,7 +277,7 @@ var PanelObj = {
                 optionBoxDom.hide();
             });
 
-    
+
 
         }
 
@@ -336,12 +318,24 @@ var MainObj = {
             var current_user_content_Dom = topDom.find('.current-user-content');
 
             current_user_Dom.click(function () {
-                current_user_content_Dom.toggle(500);
+                if (current_user_content_Dom.is(':hidden'))
+                    current_user_content_Dom.fadeIn(700);
+                else
+                    current_user_content_Dom.fadeOut(700);
+                return false;
             });
 
-            current_user_content_Dom.mouseout(function () {
-                current_user_content_Dom.toggle(500);
+            current_user_content_Dom.click(function () {
+                event.stopPropagation();
+                return true
             });
+
+            $(document).click(function () {
+                if (!current_user_content_Dom.is(':hidden')) {
+                    current_user_content_Dom.fadeOut(700);
+                }
+            });
+
 
         }
 
@@ -355,7 +349,7 @@ $(function () {
     var mainObj = MainObj.New();
     mainObj.topInit();
 
- 
+
 
 });
 

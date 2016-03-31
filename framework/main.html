@@ -29,7 +29,7 @@
 
         <div class="menu-head bgc-green"></div>
         <div class="menu-tree">
-            <ul ms-html="menuTemplate"></ul>
+            <ul ms-html="menuTemplate "></ul>
         </div>
 
     </div>
@@ -40,24 +40,22 @@
         <div class="panel-box" ms-repeat="panelArray">
 
             <!--标题-->
-            <div class="panel-tools bgc-blue overhiden" ms-mousedown="focus(this,'move')" ms-dblclick="changeSize($index,this)">
+            <div class="panel-tools bgc-blue overhiden" ms-mousedown="drag()" ms-dblclick="changeSize($index,this)">
 
-                <div class="panel-title fl" title=" {{el.text}}" ms-mousedown="focus(event,'move')">{{el.text}}</div>
+                <div class="panel-title fl" title=" {{el.text}}" ms-mousedown="drag()">{{el.text}}</div>
                 
                  <!--  窗口工具栏-->
-                <div class="fui-list option-box fr" ms-mousedown="focus(event,'move')" ms-mouseenter="operation(event)">
+                <div class="fui-list option-box cur fr" ms-mouseenter="operation()">
                     <ul class="panel-tool-box">
-                        <li ms-click="close($index)">close</li>
+                        <li ms-click="close($index)">关闭</li>
                     </ul>
                 </div>
-
 
             </div>
 
 
-
             <!--   内容容器-->
-            <div class="panel-content bgc-white" ms-mousedown="focus(event)" ms-include-src="{{el.href}}"></div>
+            <div class="panel-content bgc-white" ms-mousedown="focus()" ms-include-src="{{el.href}}"></div>
 
         </div>
 
