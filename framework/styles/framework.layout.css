@@ -89,7 +89,6 @@
 
 .menu-tree li ul {
     width: 100%;
-    padding-top: 0px;
     position: absolute;
     top: 0px;
     left: 100%;
@@ -98,6 +97,7 @@
     border-radius:3px;
     background-color:#425063;
     margin-left:2px;
+    padding:1px 1px 1px 1px;
 }
 
 .menu-tree li.expand > span {
