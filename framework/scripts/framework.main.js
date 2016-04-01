@@ -16,18 +16,17 @@ var MenuObj = {
 
         var svrObj = SvrObj.New();
 
-
         obj.data = svrObj.getMenuArray();
 
         obj.menuTplFactry = function (data, tempHtml) {
             for (var i = 0; i < data.length; i++) {
                 if (data[i].menus != null && data[i].menus.length > 0) {
-                    tempHtml += ' <li class="expand"><span>' + data[i].text + '</span> <ul> '
+                    tempHtml += ' <li class="expand"  title=' + data[i].text + '><span class="over-hide">' + data[i].text + ' <i class="fa fa-caret-down fr"></i></span> <ul> '
                     tempHtml = this.menuTplFactry(data[i].menus, tempHtml);
                     tempHtml += ' </ul> </li>'
                 }
                 else {
-                    tempHtml += ' <li ms-click="clickMenu(this)" ><span  href=' + data[i].href + '>' + data[i].text + '</span></li> '
+                    tempHtml += ' <li  ms-click="clickMenu(this)" title=' + data[i].text + ' ><span class="over-hide"  href=' + data[i].href + '>' + data[i].text + '</span></li> '
                 }
             }
             return tempHtml;
@@ -196,10 +195,14 @@ var PanelObj = {
                     var Y = event.clientY - dragging.pointY;
 
                     var tempX = panelObj.offset().left > X ? panelObj.offset().left : X;
-
                     var tempY = panelObj.offset().top > Y ? panelObj.offset().top : Y;
+
                     if (tempY > panelObj.height()) {
-                        tempY = panelObj.height() + 25;
+                        tempY = panelObj.height();
+                    }
+
+                    if (tempX > panelObj.width()) {
+                        tempX = panelObj.width();
                     }
 
 

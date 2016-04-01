@@ -9,17 +9,16 @@
     <link href="styles/framework.unity.css" rel="stylesheet" />
     <link href="styles/framework.layout.css" rel="stylesheet" />
 
-    <link href="flat-ui/css/vendor/bootstrap.min.css" rel="stylesheet" />
-    <link href="flat-ui/css/flat-ui.css" rel="stylesheet" />
-
+    <link href="styles/bootstrap.min.css" rel="stylesheet" />
+    <link href="styles/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 
 <body>
 
     <div id="main_tools">
         <div class="tools-box ">
-            <div class="current-user fr">
-                user name
+            <div class="current-user cur fr">
+              <span>user name</span><i class="fa fa-caret-down"></i>
             </div>
         </div>
         <div class="current-user-content hiden">aaa</div>
@@ -40,12 +39,12 @@
         <div class="panel-box" ms-repeat="panelArray">
 
             <!--标题-->
-            <div class="panel-tools bgc-blue overhiden" ms-mousedown="drag()" ms-dblclick="changeSize($index,this)">
+            <div class="panel-tools bgc-blue over-hide" ms-mousedown="drag()" ms-dblclick="changeSize($index,this)">
 
                 <div class="panel-title fl" title=" {{el.text}}" ms-mousedown="drag()">{{el.text}}</div>
                 
                  <!--  窗口工具栏-->
-                <div class="fui-list option-box cur fr" ms-mouseenter="operation()">
+                <div class="fa fa-bars option-box cur fr" ms-mouseenter="operation()">
                     <ul class="panel-tool-box">
                         <li ms-click="close($index)">关闭</li>
                     </ul>
@@ -74,8 +73,7 @@
 
     <script type="text/javascript" src="scripts/avalon.js"></script>
     <script type="text/javascript" src="scripts/jquery.min.js"></script>
-    <script type="text/javascript" src="scripts/linq-vsdoc.js"></script>
-    <script src="scripts/linq.js"></script>
+    <script type="text/javascript" src="scripts/linq.js"></script>
     <script type="text/javascript" src="scripts/framework.main.js"></script>
     <script type="text/javascript" src="scripts/framework.unity.js"></script>
     <script type="text/javascript" src="scripts/framework.model.js"></script>

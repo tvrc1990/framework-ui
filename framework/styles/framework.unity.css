@@ -35,7 +35,7 @@ small {
     position: absolute;
 }
 
-.overhiden {
+.over-hide {
     overflow: hidden;
 }
 
@@ -67,4 +67,9 @@ small {
 
 .cur {
     cursor:pointer;
+}
+
+/*文字换行*/
+.warp{
+  word-break: break-all; word-wrap:break-word
 }
